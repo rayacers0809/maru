@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, GatewayIntentBits, Collection, Events } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Events, Partials } = require('discord.js');
 const firestore = require('./lib/firestore');
 
 // Firestore 연결 (서비스 계정 키 없으면 경고만 출력하고 계속)
@@ -17,8 +17,10 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,   // 음성로그에 필수
     GatewayIntentBits.GuildMembers,       // 멤버 정보
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,     // 끝말잇기/타자게임 메시지 수집용
+    GatewayIntentBits.MessageContent,     // 끝말잇기/타자게임 + 메시지 로그
   ],
+  // 캐시 안 된(봇 시작 전) 메시지의 삭제/수정도 일부 잡으려면 Partials 필요
+  partials: [Partials.Message, Partials.Channel],
 });
 
 // ===== 슬래시 명령어 로드 =====
