@@ -58,6 +58,10 @@ function startApiServer(client) {
           enabled: !!body.voiceLog?.enabled,
           channelId: body.voiceLog?.channelId || null,
         },
+        messageLog: {
+          enabled: !!body.messageLog?.enabled,
+          channelId: body.messageLog?.channelId || null,
+        },
         welcome: {
           enabled: !!body.welcome?.enabled,
           channelId: body.welcome?.channelId || null,
